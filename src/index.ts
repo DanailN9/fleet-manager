@@ -1,3 +1,4 @@
+import { Collection } from "./data/Collection";
 import { LocalStorage } from "./data/Storage";
 
 console.log('index');
@@ -5,16 +6,18 @@ console.log('index');
 
 async function start() {
     const storage = new LocalStorage();
+    //const collection = new Collection(storage, 'cars')
 
     console.log(await storage.getAll('cars'));
-
+    
     const carData = {
         make: 'vw',
-        model: 'Golf 2 '
+        model: 'bmw'
     }
-
-    const car = await storage.update('car', '9624-dd0f', carData);
+    
+    const car = await storage.create('cars', carData);
     //console.log(car)
+
 }
 
 start()

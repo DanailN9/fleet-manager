@@ -1,0 +1,4 @@
+export function generateId() {
+    return '0000-0000'.replace(/0/g, () => (Math.random() * 16 | 0).toString(16));
+}
+//# sourceMappingURL=util.js.map

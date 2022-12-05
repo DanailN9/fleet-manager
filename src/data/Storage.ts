@@ -1,8 +1,8 @@
 import { generateId } from "./util";
 
-type TapeId = string;
+export type TapeId = string;
 
-export type Tape = {
+export interface Tape {
     id: string
 }
 
