@@ -1,4 +1,5 @@
 import { Collection } from "./data/Collection";
+import { CarService } from "./data/Service";
 import { LocalStorage } from "./data/Storage";
 
 console.log('index');
@@ -6,17 +7,10 @@ console.log('index');
 
 async function start() {
     const storage = new LocalStorage();
-    //const collection = new Collection(storage, 'cars')
+    const collection = new Collection(storage, 'koli');
+    const carsService = new CarService(collection);
 
-    console.log(await storage.getAll('cars'));
-    
-    const carData = {
-        make: 'vw',
-        model: 'bmw'
-    }
-    
-    const car = await storage.create('cars', carData);
-    //console.log(car)
+    console.log(await carsService.getAll())
 
 }
 

@@ -1,3 +1,4 @@
+import { TapeId } from "./Storage";
 import { Vehicle } from "./Vehicle";
 
 
@@ -7,7 +8,7 @@ export class Car extends Vehicle {
     numberOfSeats: number;
     transmission: string;
 
-    constructor(id:string, 
+    constructor(id:TapeId, 
                 make:string, 
                 model:string, 
                 rentalPrice:number, 

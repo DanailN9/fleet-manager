@@ -1,5 +1,5 @@
+import { Car } from "./Car";
 import { Collection } from "./Collection";
-import { Cars } from "./models";
 import { Tape, TapeId } from "./Storage";
 
 export interface Service<T> {
@@ -11,29 +11,29 @@ export interface Service<T> {
 
 }
 
-export class CarService implements Service<Cars> {
+export class CarService implements Service<Car> {
     constructor(
         private collection: Collection,
     ){}
 
-    async getAll(): Promise<Cars[]> {
+    async getAll(): Promise<Car[]> {
         const records = (await this.collection.getAll()).map(r => this.parseRecord(r));
         return records;
     }
 
-    async getById(id: string): Promise<Cars> {
+    async getById(id: string): Promise<Car> {
         const record = await this.collection.getById(id);
         return this.parseRecord(record);
     }
 
-    async create(data: any): Promise<Cars> {
+    async create(data: any): Promise<Car> {
         this.validate(data);
         const record = await this.collection.create(data);
         return this.parseRecord(record);
 
     }
 
-    async update(id: string, data: any): Promise<Cars> {
+    async update(id: string, data: any): Promise<Car> {
         this.validate(data);
         const record = await this.collection.update(id, data);
         return this.parseRecord(record);
@@ -43,16 +43,17 @@ export class CarService implements Service<Cars> {
         return this.collection.delete(id);
     }
 
-    private parseRecord(record: Tape): Cars {
+    private parseRecord(record: Tape): Car {
         const data = record as any;
-        const result = new Cars(
+        const result = new Car(
             data.id,
             data.make,
             data.model,
             data.bodyType,
             data.seats,
             data.transmission,
-            data.rentalPrice
+            data.rentalPrice,
+            data.rentedTo
         )
 
         return result;
@@ -76,6 +77,9 @@ export class CarService implements Service<Cars> {
         }
         if (data.rentalPrice != 'number') {
             throw new TypeError('Incompatible record. Invalid property "rentalPrice"');
+        }
+        if (data.rentedTo != 'string' || data.rentedTo != null) {
+            throw new TypeError('Incompatible record. Invalid property "rentalTo"');
         }
     }
     
